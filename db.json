@@ -35,6 +35,12 @@
       "name": "Rutuja Nandkhile",
       "email": "admin@gmail.com",
       "password": "123456"
+    },
+    {
+      "id": "8d54",
+      "name": "nikita",
+      "email": "nikita@gmail.com",
+      "password": "1234"
     }
   ],
   "photos": []

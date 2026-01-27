@@ -14,38 +14,59 @@ const Login = () => {
     try {
       const res = await loginUser(email, password);
 
-      if (res.data.length > 0) {
-        localStorage.setItem("isLogin", "true");
-        localStorage.setItem("currentUser", JSON.stringify(res.data[0]));
-        alert("Login successful!");
-        navigate("/dashboard");
-      } else {
-        alert("Invalid credentials");
+      if (res.data.length === 0) {
+        alert("Invalid Email or Password");
+        return;
       }
+
+      localStorage.setItem("isLogin", "true");
+      localStorage.setItem(
+        "currentUser",
+        JSON.stringify(res.data[0])
+      );
+
+      alert("Login successful!");
+      navigate("/dashboard");
     } catch (err) {
-      console.error(err);
-      alert("Server error");
+      console.error("Login Error:", err);
+      alert("Server not reachable");
     }
   };
 
   return (
-    <>
-    <div className="login-page container-fuild">
-      <div className=" login container mt-4">
-      <h3>Login</h3>
+    <div className="login-page container-fluid">
+      <div className="login container mt-4">
+        <h3>Login</h3>
 
-      <form onSubmit={handleLogin}>
-        <input className="form-control mb-2" type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-        <input className="form-control mb-2" type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-        <button className="btn btn-primary w-100">Login</button>
-      </form>
+        <form onSubmit={handleLogin}>
+          <input
+            className="form-control mb-2"
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
 
-      <p className="mt-3">
-        New user? <Link to="/Signup">Register</Link>
-      </p>
+          <input
+            className="form-control mb-2"
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+
+          <button className="btn btn-primary w-100">
+            Login
+          </button>
+        </form>
+
+        <p className="mt-3">
+          New user? <Link to="/Signup">Register</Link>
+        </p>
+      </div>
     </div>
-    </div>
-    </>
   );
 };
 
