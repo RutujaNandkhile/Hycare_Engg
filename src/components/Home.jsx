@@ -12,10 +12,10 @@ import photoStore from "../store/photostore";
 const Home = () => {
   const [photos, setPhotos] = useState([]);
 
-  // Load photos from localStorage on mount
+  // Subscribe to live photo updates
   useEffect(() => {
-    photoStore.load(); // load from localStorage
-    setPhotos([...photoStore.photos]); // trigger re-render with photos
+    const unsubscribe = photoStore.subscribe(setPhotos);
+    return () => unsubscribe();
   }, []);
 
   return (
@@ -45,7 +45,7 @@ const Home = () => {
       <Stats />
       <Services />
       <Partners />
-      <HomePhotoSection photos={photos} /> {/* pass state here */}
+      <HomePhotoSection photos={photos} /> {/* live gallery */}
       <PartnershipSection />
       <FAQComponent />
     </>

@@ -1,4 +1,5 @@
 import "./HomePhotoSection.css";
+
 const HomePhotoSection = ({ photos }) => {
   return (
     <section className="services-section py-5">

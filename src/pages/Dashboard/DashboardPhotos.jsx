@@ -1,9 +1,8 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef } from "react";
 import photoStore from "../../store/photostore";
 
-
 const DashboardPhotos = () => {
-  const [photos, setPhotos] = useState([]);
+  const [photos, setPhotos] = useState([...photoStore.photos]);
   const [title, setTitle] = useState("");
   const [file, setFile] = useState(null);
   const [editingId, setEditingId] = useState(null);
@@ -12,14 +11,13 @@ const DashboardPhotos = () => {
 
   const fileInputRef = useRef(null);
 
-  // Load photos on mount
-  useEffect(() => {
-    setPhotos([...photoStore.photos]);
-  }, []);
+  // Subscribe to live changes
+  useState(() => {
+    const unsubscribe = photoStore.subscribe(setPhotos);
+    return () => unsubscribe();
+  });
 
-  const clearMessage = () => {
-    setTimeout(() => setMessage(""), 3000);
-  };
+  const clearMessage = () => setTimeout(() => setMessage(""), 3000);
 
   const resetForm = () => {
     setTitle("");
@@ -46,7 +44,11 @@ const DashboardPhotos = () => {
 
     if (editingId) {
       const oldPhoto = photos.find((p) => p.id === editingId);
-      const updatedPhoto = { id: editingId, title, image: imageBase64 || oldPhoto.image };
+      const updatedPhoto = {
+        id: editingId,
+        title,
+        image: imageBase64 || oldPhoto.image,
+      };
       photoStore.update(editingId, updatedPhoto);
       setMessage("✅ Photo updated successfully");
     } else {
@@ -59,7 +61,6 @@ const DashboardPhotos = () => {
       setMessage("✅ Photo uploaded successfully");
     }
 
-    setPhotos([...photoStore.photos]);
     resetForm();
     clearMessage();
   };
@@ -75,7 +76,6 @@ const DashboardPhotos = () => {
   const deletePhoto = (id) => {
     if (window.confirm("Are you sure you want to delete this photo?")) {
       photoStore.delete(id);
-      setPhotos([...photoStore.photos]);
       setMessage("🗑 Photo deleted successfully");
       clearMessage();
     }
@@ -85,10 +85,8 @@ const DashboardPhotos = () => {
     <div className="container mt-4">
       <h2 className="mb-3">Photo Management</h2>
 
-      {/* Success Message */}
       {message && <div className="alert alert-success text-center">{message}</div>}
 
-      {/* Form */}
       <form
         onSubmit={addOrUpdatePhoto}
         className="mb-3 d-flex flex-column flex-md-row gap-2 align-items-start"
@@ -124,7 +122,6 @@ const DashboardPhotos = () => {
         </div>
       </form>
 
-      {/* Image Preview */}
       {editingId && previewImage && (
         <div className="mb-4">
           <label className="form-label">Current Image</label>
@@ -132,17 +129,11 @@ const DashboardPhotos = () => {
           <img
             src={previewImage}
             alt="Preview"
-            style={{
-              width: "120px",
-              height: "80px",
-              objectFit: "cover",
-              border: "1px solid #ccc",
-            }}
+            style={{ width: "120px", height: "80px", objectFit: "cover", border: "1px solid #ccc" }}
           />
         </div>
       )}
 
-      {/* Table */}
       <div className="table-responsive">
         <table className="table table-bordered table-hover">
           <thead className="table-dark">
@@ -157,11 +148,7 @@ const DashboardPhotos = () => {
               photos.map((p) => (
                 <tr key={p.id}>
                   <td>
-                    <img
-                      src={p.image}
-                      alt={p.title}
-                      style={{ width: "100px", height: "70px", objectFit: "cover" }}
-                    />
+                    <img src={p.image} alt={p.title} style={{ width: "100px", height: "70px", objectFit: "cover" }} />
                   </td>
                   <td>{p.title}</td>
                   <td>
