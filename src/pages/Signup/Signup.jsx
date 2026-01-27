@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { addUser } from "../../services/userService"; // axios service
+import "./auth.css";
+
 
 const Signup = () => {
   const [form, setForm] = useState({ name: "", email: "", password: "" });
@@ -30,7 +32,10 @@ const Signup = () => {
   };
 
   return (
-    <div className="card p-4 col-md-6 mx-auto mt-4">
+
+    <>
+    <div className="login-page ">
+      <div className="card p-4 col-md-6 mx-auto mt-4">
       <h4>Signup</h4>
       <form onSubmit={handleSignup}>
         <input
@@ -61,6 +66,8 @@ const Signup = () => {
         <button className="btn btn-primary w-100">Register</button>
       </form>
     </div>
+    </div>
+    </>
   );
 };
 

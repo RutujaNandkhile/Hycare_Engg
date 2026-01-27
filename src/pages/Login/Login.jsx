@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { loginUser } from "../../services/userService";
+import "./Login.css";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -28,7 +29,9 @@ const Login = () => {
   };
 
   return (
-    <div className="container mt-4">
+    <>
+    <div className="login-page container-fuild">
+      <div className=" login container mt-4">
       <h3>Login</h3>
 
       <form onSubmit={handleLogin}>
@@ -41,6 +44,8 @@ const Login = () => {
         New user? <Link to="/Signup">Register</Link>
       </p>
     </div>
+    </div>
+    </>
   );
 };
 

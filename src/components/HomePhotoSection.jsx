@@ -1,35 +1,38 @@
+import { useEffect, useState } from "react";
+import photoStore from "../store/photostore";
 import "./HomePhotoSection.css";
 
-const HomePhotoSection = ({ photos }) => {
+const HomePhotoSection = () => {
+  const [photos, setPhotos] = useState(photoStore.photos);
+
+  useEffect(() => {
+    const unsub = photoStore.subscribe(setPhotos);
+    return () => unsub();
+  }, []);
+
   return (
     <section className="services-section py-5">
       <div className="container">
-        <h2 className="text-center mb-2">Gallery</h2>
-        <p className="text-center text-muted mb-4">
-          FIND THE OPTION THAT'S RIGHT FOR YOU!
-        </p>
+        <h2 className="text-center mb-4">Gallery</h2>
 
         <div className="row">
-          {photos.length > 0 ? (
-            photos.map((item) => (
-              <div key={item.id} className="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
-                <div className="card h-100 shadow-sm">
+          {photos.length ? (
+            photos.map((p) => (
+              <div key={p.id} className="col-md-3 mb-4">
+                <div className="card h-100">
                   <img
-                    src={item.image}
-                    alt={item.title}
+                    src={p.image}
                     className="card-img-top"
-                    style={{ height: "200px", objectFit: "cover" }}
+                    style={{ height: 200, objectFit: "cover" }}
                   />
-                  <div className="card-body">
-                    <p className="card-text text-center mb-0">{item.title}</p>
+                  <div className="card-body text-center">
+                    {p.title}
                   </div>
                 </div>
               </div>
             ))
           ) : (
-            <div className="col-12">
-              <p className="text-center">No photos to display.</p>
-            </div>
+            <p className="text-center">No photos available</p>
           )}
         </div>
       </div>

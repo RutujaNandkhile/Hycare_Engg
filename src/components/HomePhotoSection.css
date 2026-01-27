@@ -1,117 +1,112 @@
+/* ===============================
+   SERVICES SECTION – FINAL MATCH
+================================ */
 .services-section {
   position: relative;
-  background: #e4d4cf;
-  padding: 120px 0 80px;
+  padding: 160px 0 110px;
+  background: #ffffff;
   overflow: hidden;
 }
 
-/* Curved top & bottom look */
-.services-section::before,
-.services-section::after {
+/* ===== WAVE BACKGROUND ===== */
+.services-section::before {
   content: "";
   position: absolute;
-  left: 0;
-  width: 100%;
-  height: 103px;
-  background: #ffffff;
-  border-radius: 0 0 100% 100%;
+  top: -1o8px;
+  left: -10%;
+  width: 120%;
+  height: 520px;
+  background: #d9cbc4; /* closer beige */
+  border-radius: 0 0 50% 50%;
+  z-index: 0;
 }
 
-.services-section::before {
-  top: -60px;
+/* ===== CONTENT LAYER ===== */
+.services-section .container {
+  position: relative;
+  z-index: 2;
 }
 
-.services-section::after {
-  bottom: -60px;
-  transform: rotate(180deg);
-}
-
+/* ===== HEADING ===== */
 .services-section h2 {
-  font-family: "Georgia", serif;
-  letter-spacing: 4px;
+  font-family: "Playfair Display", serif;
   font-size: 48px;
-  color: #000;
+  letter-spacing: 6px;
+  font-weight: 400;
+  color: #111;
+  text-align: center;
+  margin-bottom: 14px;
 }
 
-.services-section p {
-  letter-spacing: 2px;
-  font-size: 13px;
+/* ===== SUB HEADING ===== */
+.services-section h2::after {
+  content: "FIND THE OPTION THAT'S RIGHT FOR YOU!";
+  display: block;
+  margin-top: 12px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  letter-spacing: 2.5px;
   color: #555;
 }
 
-/* Card reset from bootstrap look */
-.services-section .card {
-  border: none;
-  background: transparent;
-  box-shadow: none !important;
+/* ===== IMAGE GRID POSITION ===== */
+.services-section .row {
+  margin-top: 95px;
 }
 
-.services-section .card img {
-  width: 100%;
-  height: 280px;
+/* ===== CARD RESET ===== */
+.services-section .card {
+  border: none;
+  border-radius: 0;
+  background: transparent;
+}
+
+/* ===== IMAGE STYLE ===== */
+.services-section .card-img-top {
+  /* height: 460px !important; */
   object-fit: cover;
-  border-radius: 2px;
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.18);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+/* ===== FLOAT EFFECT ===== */
+.services-section .card:hover .card-img-top {
+  transform: translateY(-12px);
+  box-shadow: 0 36px 70px rgba(0, 0, 0, 0.25);
+}
+
+/* ===== TEXT BELOW IMAGE ===== */
+.services-section .card-body {
+  margin-top: 18px;
+  padding: 0;
+  text-align: center;
+  background: transparent;
 }
 
 .services-section .card-body {
-  padding: 10px 0 0;
-}
-
-.services-section .card-text {
-  text-align: center;
   font-size: 14px;
   letter-spacing: 1px;
-  color: #333;
+  color: #222;
 }
 
-/* Spacing between images */
-.services-section .col-lg-3 {
-  display: flex;
-  justify-content: center;
-}
-
-/* Responsive */
-@media (max-width: 1200px) {
-  .services-section h2 {
-    font-size: 40px;
-  }
-}
-
+/* ===== RESPONSIVE ===== */
 @media (max-width: 992px) {
-  .services-section {
-    padding: 90px 0 60px;
-  }
-
-  .services-section .card img {
-    height: 240px;
-  }
-}
-
-@media (max-width: 768px) {
-  .services-section h2 {
-    font-size: 34px;
-  }
-
-  .services-section p {
-    font-size: 12px;
-  }
-
-  .services-section .card img {
-    height: 220px;
+  .services-section .card-img-top {
+    height: 360px !important;
   }
 }
 
 @media (max-width: 576px) {
   .services-section {
-    padding: 70px 0 40px;
+    padding: 120px 0 80px;
+  }
+
+  .services-section::before {
+    height: 360px;
+    top: -80px;
   }
 
   .services-section h2 {
-    font-size: 28px;
-    letter-spacing: 2px;
-  }
-
-  .services-section .card img {
-    height: 200px;
+    font-size: 34px;
   }
 }

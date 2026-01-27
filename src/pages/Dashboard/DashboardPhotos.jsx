@@ -1,178 +1,138 @@
-import { useState, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import photoStore from "../../store/photostore";
 
 const DashboardPhotos = () => {
-  const [photos, setPhotos] = useState([...photoStore.photos]);
+  const [photos, setPhotos] = useState(photoStore.photos);
   const [title, setTitle] = useState("");
   const [file, setFile] = useState(null);
   const [editingId, setEditingId] = useState(null);
-  const [message, setMessage] = useState("");
-  const [previewImage, setPreviewImage] = useState(null);
+  const [preview, setPreview] = useState(null);
+  const fileRef = useRef();
 
-  const fileInputRef = useRef(null);
+  useEffect(() => {
+    const unsub = photoStore.subscribe(setPhotos);
+    return () => unsub();
+  }, []);
 
-  // Subscribe to live changes
-  useState(() => {
-    const unsubscribe = photoStore.subscribe(setPhotos);
-    return () => unsubscribe();
-  });
+  const toBase64 = (file) =>
+    new Promise((res, rej) => {
+      const reader = new FileReader();
+      reader.onload = () => res(reader.result);
+      reader.onerror = rej;
+      reader.readAsDataURL(file);
+    });
 
-  const clearMessage = () => setTimeout(() => setMessage(""), 3000);
-
-  const resetForm = () => {
+  const reset = () => {
     setTitle("");
     setFile(null);
     setEditingId(null);
-    setPreviewImage(null);
-    if (fileInputRef.current) fileInputRef.current.value = "";
+    setPreview(null);
+    if (fileRef.current) fileRef.current.value = "";
   };
 
-  const toBase64 = (file) =>
-    new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result);
-      reader.onerror = (error) => reject(error);
-    });
-
-  const addOrUpdatePhoto = async (e) => {
+  const submit = async (e) => {
     e.preventDefault();
     if (!title) return;
 
-    let imageBase64 = null;
-    if (file) imageBase64 = await toBase64(file);
+    let image = preview;
+    if (file) image = await toBase64(file);
 
     if (editingId) {
-      const oldPhoto = photos.find((p) => p.id === editingId);
-      const updatedPhoto = {
-        id: editingId,
-        title,
-        image: imageBase64 || oldPhoto.image,
-      };
-      photoStore.update(editingId, updatedPhoto);
-      setMessage("✅ Photo updated successfully");
+      photoStore.update(editingId, { id: editingId, title, image });
     } else {
-      if (!imageBase64) {
-        alert("Please select an image");
-        return;
-      }
-      const newPhoto = { id: Date.now(), title, image: imageBase64 };
-      photoStore.add(newPhoto);
-      setMessage("✅ Photo uploaded successfully");
+      if (!image) return alert("Select image");
+      photoStore.add({ id: Date.now(), title, image });
     }
 
-    resetForm();
-    clearMessage();
-  };
-
-  const editPhoto = (photo) => {
-    setTitle(photo.title);
-    setEditingId(photo.id);
-    setPreviewImage(photo.image);
-    setFile(null);
-    if (fileInputRef.current) fileInputRef.current.value = "";
-  };
-
-  const deletePhoto = (id) => {
-    if (window.confirm("Are you sure you want to delete this photo?")) {
-      photoStore.delete(id);
-      setMessage("🗑 Photo deleted successfully");
-      clearMessage();
-    }
+    reset();
   };
 
   return (
     <div className="container mt-4">
-      <h2 className="mb-3">Photo Management</h2>
+      <h2>Photo Dashboard</h2>
 
-      {message && <div className="alert alert-success text-center">{message}</div>}
-
-      <form
-        onSubmit={addOrUpdatePhoto}
-        className="mb-3 d-flex flex-column flex-md-row gap-2 align-items-start"
-      >
+      <form onSubmit={submit} className="mb-3">
         <input
-          className="form-control"
-          placeholder="Photo Title"
+          className="form-control mb-2"
           value={title}
+          placeholder="Photo title"
           onChange={(e) => setTitle(e.target.value)}
           required
         />
 
         <input
           type="file"
-          className="form-control"
+          className="form-control mb-2"
+          ref={fileRef}
           accept="image/*"
-          ref={fileInputRef}
           onChange={(e) => {
-            const selectedFile = e.target.files[0];
-            setFile(selectedFile);
-            if (selectedFile) setPreviewImage(URL.createObjectURL(selectedFile));
+            const f = e.target.files[0];
+            setFile(f);
+            if (f) setPreview(URL.createObjectURL(f));
           }}
           required={!editingId}
         />
 
-        <div className="d-flex gap-2 flex-wrap">
-          <button className="btn btn-primary">{editingId ? "Update" : "Add"}</button>
-          {editingId && (
-            <button type="button" className="btn btn-secondary" onClick={resetForm}>
-              Cancel
-            </button>
-          )}
-        </div>
+        <button className="btn btn-primary">
+          {editingId ? "Update" : "Add"}
+        </button>
+
+        {editingId && (
+          <button
+            type="button"
+            className="btn btn-secondary ms-2"
+            onClick={reset}
+          >
+            Cancel
+          </button>
+        )}
       </form>
 
-      {editingId && previewImage && (
-        <div className="mb-4">
-          <label className="form-label">Current Image</label>
-          <br />
-          <img
-            src={previewImage}
-            alt="Preview"
-            style={{ width: "120px", height: "80px", objectFit: "cover", border: "1px solid #ccc" }}
-          />
-        </div>
-      )}
-
-      <div className="table-responsive">
-        <table className="table table-bordered table-hover">
-          <thead className="table-dark">
-            <tr>
-              <th>Preview</th>
-              <th>Title</th>
-              <th style={{ minWidth: "160px" }}>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {photos.length > 0 ? (
-              photos.map((p) => (
-                <tr key={p.id}>
-                  <td>
-                    <img src={p.image} alt={p.title} style={{ width: "100px", height: "70px", objectFit: "cover" }} />
-                  </td>
-                  <td>{p.title}</td>
-                  <td>
-                    <div className="d-flex flex-wrap gap-2">
-                      <button className="btn btn-warning btn-sm" onClick={() => editPhoto(p)}>
-                        Edit
-                      </button>
-                      <button className="btn btn-danger btn-sm" onClick={() => deletePhoto(p.id)}>
-                        Delete
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan="3" className="text-center">
-                  No photos added yet
+      <table className="table table-bordered">
+        <thead className="table-dark">
+          <tr>
+            <th>Preview</th>
+            <th>Title</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {photos.length ? (
+            photos.map((p) => (
+              <tr key={p.id}>
+                <td>
+                  <img src={p.image} style={{ width: 100 }} />
+                </td>
+                <td>{p.title}</td>
+                <td>
+                  <button
+                    className="btn btn-warning btn-sm me-2"
+                    onClick={() => {
+                      setEditingId(p.id);
+                      setTitle(p.title);
+                      setPreview(p.image);
+                    }}
+                  >
+                    Edit
+                  </button>
+                  <button
+                    className="btn btn-danger btn-sm"
+                    onClick={() => photoStore.delete(p.id)}
+                  >
+                    Delete
+                  </button>
                 </td>
               </tr>
-            )}
-          </tbody>
-        </table>
-      </div>
+            ))
+          ) : (
+            <tr>
+              <td colSpan="3" className="text-center">
+                No photos
+              </td>
+            </tr>
+          )}
+        </tbody>
+      </table>
     </div>
   );
 };

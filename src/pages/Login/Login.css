@@ -1,0 +1,136 @@
+/* ===== FORM login ===== */
+.login-page {
+    background-color: rgb(75, 48, 12); 
+    width: 100vw;                  
+    height: 100vh;                
+    margin: 0;                    
+    padding: 0;                   
+    box-sizing: border-box;       
+}
+
+
+.login.container {
+  /* width: 100%; */
+  max-width: 400px; /* compact form width */
+  margin: 50px auto;
+  padding: 24px 20px;
+  background: #1a1f2b;
+  border-radius: 16px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* ===== FORM HEADING ===== */
+.login h3 {
+  color: #ffffff;
+  text-align: center;
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  letter-spacing: 1px;
+  position: relative;
+}
+
+/* gradient underline */
+.login h3::after {
+  content: "";
+  width: 50px;
+  height: 3px;
+  background: linear-gradient(90deg, #ff6a00, #ee0979);
+  display: block;
+  margin: 10px auto 0;
+  border-radius: 2px;
+}
+
+/* ===== INPUT FIELDS ===== */
+.login input,
+.login select,
+.login textarea {
+  /* width: 100%; */
+  background: #121826;
+  border: 1px solid #3b3f4d;
+  border-radius: 10px;
+  color: #ffffff;
+  padding: 10px 12px; /* smaller padding for compact inputs */
+  font-size: 14px;
+  margin-bottom: 12px;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+/* placeholder styling */
+.login input::placeholder,
+.login textarea::placeholder {
+  color: #9ca3af;
+  font-size: 13px;
+  font-style: italic;
+}
+
+/* focus effect */
+.login input:focus,
+.login select:focus,
+.login textarea:focus {
+  outline: none;
+  border-color: #ff6a00;
+  box-shadow: 0 0 0 3px rgba(255, 106, 0, 0.2);
+}
+
+/* ===== BUTTON ===== */
+.login button {
+  width: 100%;
+  background: #ee0979;
+  border: none;
+  border-radius: 12px;
+  padding: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #ffffff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  display: block;
+}
+
+/* hover effect */
+.login button:hover {
+  background: #ff6a00;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(238, 9, 121, 0.3);
+}
+
+/* ===== FOOTER TEXT ===== */
+.login p {
+  text-align: center;
+  margin-top: 16px;
+  color: #cbd5e1;
+  font-size: 13px;
+}
+
+/* link */
+.login p a {
+  color: #ff6a00;
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+.login p a:hover {
+  color: #ee0979;
+}
+
+/* ===== MOBILE ===== */
+@media (max-width: 480px) {
+  .login {
+    padding: 20px 16px;
+  }
+
+  .login h3 {
+    font-size: 22px;
+  }
+
+  .login input,
+  .login textarea,
+  .login button {
+    padding: 10px;
+    font-size: 13px;
+  }
+}

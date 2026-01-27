@@ -1,48 +1,57 @@
-const PHOTO_STORAGE_KEY = "photos";
+const STORAGE_KEY = "PERMANENT_PHOTOS";
 
-const getPhotos = () => {
-  if (typeof window === "undefined") return [];
-  const data = localStorage.getItem(PHOTO_STORAGE_KEY);
-  return data ? JSON.parse(data) : [];
+// Load from localStorage
+const loadPhotos = () => {
+  try {
+    const data = localStorage.getItem(STORAGE_KEY);
+    return data ? JSON.parse(data) : [];
+  } catch {
+    return [];
+  }
 };
 
+// Save to localStorage
 const savePhotos = (photos) => {
-  if (typeof window === "undefined") return;
-  localStorage.setItem(PHOTO_STORAGE_KEY, JSON.stringify(photos));
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(photos));
+};
+
+// Subscribers
+let listeners = [];
+
+const notify = () => {
+  listeners.forEach((cb) => cb([...photoStore.photos]));
 };
 
 const photoStore = {
-  photos: getPhotos(),
-  subscribers: [],
-
-  notify() {
-    this.subscribers.forEach((cb) => cb([...this.photos]));
-  },
+  photos: loadPhotos(),
 
   subscribe(cb) {
-    this.subscribers.push(cb);
-    cb([...this.photos]); // immediately send current photos
+    listeners.push(cb);
+    cb([...this.photos]);
+
     return () => {
-      this.subscribers = this.subscribers.filter((s) => s !== cb);
+      listeners = listeners.filter((l) => l !== cb);
     };
   },
 
   add(photo) {
-    this.photos.push(photo);
+    this.photos = [...this.photos, photo];
     savePhotos(this.photos);
-    this.notify();
+    notify();
   },
 
-  update(id, updatedPhoto) {
-    this.photos = this.photos.map((p) => (p.id === id ? updatedPhoto : p));
+  update(id, updated) {
+    this.photos = this.photos.map((p) =>
+      p.id === id ? updated : p
+    );
     savePhotos(this.photos);
-    this.notify();
+    notify();
   },
 
   delete(id) {
     this.photos = this.photos.filter((p) => p.id !== id);
     savePhotos(this.photos);
-    this.notify();
+    notify();
   },
 };
 

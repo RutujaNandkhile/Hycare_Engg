@@ -17,6 +17,24 @@
       "name": "Rutuja Nandkhile",
       "email": "rutujanandkhile11@gmail.com",
       "password": "123456"
+    },
+    {
+      "id": "2351",
+      "name": "Rutuja",
+      "email": "rutujanandkhile1@gmail.com",
+      "password": "12345"
+    },
+    {
+      "id": "1f55",
+      "name": "Rutuja",
+      "email": "rutuja1@gmail.com",
+      "password": "1234"
+    },
+    {
+      "id": "88df",
+      "name": "Rutuja Nandkhile",
+      "email": "admin@gmail.com",
+      "password": "123456"
     }
   ],
   "photos": []

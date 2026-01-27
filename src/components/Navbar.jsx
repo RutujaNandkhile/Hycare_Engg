@@ -7,7 +7,7 @@ const Navbar = () => {
   const location = useLocation();
 
   // hide navbar on these pages if needed
-  const hideOnRoutes = ["/login", "/dashboard", "/users"];
+  const hideOnRoutes = ["/login", "/dashboard", "/users" ,"/Signup"];
 
   if (hideOnRoutes.includes(location.pathname)) {
     return null; // don't render navbar

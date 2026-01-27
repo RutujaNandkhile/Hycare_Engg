@@ -30,7 +30,7 @@ function App() {
   const location = useLocation();
 
   // Hide Navbar & Footer on login/signup/dashboard
-  const hideLayoutRoutes = ["/login", "/signup", "/dashboard"];
+  const hideLayoutRoutes = ["/login", "/Signup", "/dashboard", ];
   const hideLayout = hideLayoutRoutes.some((route) =>
     location.pathname.startsWith(route)
   );
