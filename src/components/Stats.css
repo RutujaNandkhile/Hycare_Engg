@@ -1,0 +1,30 @@
+.stats {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* padding: 80px 0; */
+  gap: 60px;
+  background: #fff;
+}
+
+.stat {
+  text-align: center;
+  min-width: 200px;
+}
+
+.stat h2 {
+  font-size: 64px !important;
+  color: #8c5a3c;
+  margin-bottom: 10px;
+}
+
+.stat p {
+  font-size: 18px !important;
+  color: #000;
+}
+
+.divider {
+  width: 1px;
+  height: 80px;
+  background: #ccc;
+}

@@ -1,0 +1,117 @@
+.services-section {
+  position: relative;
+  background: #e4d4cf;
+  padding: 120px 0 80px;
+  overflow: hidden;
+}
+
+/* Curved top & bottom look */
+.services-section::before,
+.services-section::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 103px;
+  background: #ffffff;
+  border-radius: 0 0 100% 100%;
+}
+
+.services-section::before {
+  top: -60px;
+}
+
+.services-section::after {
+  bottom: -60px;
+  transform: rotate(180deg);
+}
+
+.services-section h2 {
+  font-family: "Georgia", serif;
+  letter-spacing: 4px;
+  font-size: 48px;
+  color: #000;
+}
+
+.services-section p {
+  letter-spacing: 2px;
+  font-size: 13px;
+  color: #555;
+}
+
+/* Card reset from bootstrap look */
+.services-section .card {
+  border: none;
+  background: transparent;
+  box-shadow: none !important;
+}
+
+.services-section .card img {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  border-radius: 2px;
+}
+
+.services-section .card-body {
+  padding: 10px 0 0;
+}
+
+.services-section .card-text {
+  text-align: center;
+  font-size: 14px;
+  letter-spacing: 1px;
+  color: #333;
+}
+
+/* Spacing between images */
+.services-section .col-lg-3 {
+  display: flex;
+  justify-content: center;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+  .services-section h2 {
+    font-size: 40px;
+  }
+}
+
+@media (max-width: 992px) {
+  .services-section {
+    padding: 90px 0 60px;
+  }
+
+  .services-section .card img {
+    height: 240px;
+  }
+}
+
+@media (max-width: 768px) {
+  .services-section h2 {
+    font-size: 34px;
+  }
+
+  .services-section p {
+    font-size: 12px;
+  }
+
+  .services-section .card img {
+    height: 220px;
+  }
+}
+
+@media (max-width: 576px) {
+  .services-section {
+    padding: 70px 0 40px;
+  }
+
+  .services-section h2 {
+    font-size: 28px;
+    letter-spacing: 2px;
+  }
+
+  .services-section .card img {
+    height: 200px;
+  }
+}
