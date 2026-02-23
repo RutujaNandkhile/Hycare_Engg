@@ -3,38 +3,67 @@ import photoStore from "../store/photostore";
 import "./HomePhotoSection.css";
 
 const HomePhotoSection = () => {
-  const [photos, setPhotos] = useState(photoStore.photos);
+  const [photos, setPhotos] = useState([]);
+  const [index, setIndex] = useState(0);
 
   useEffect(() => {
-    const unsub = photoStore.subscribe(setPhotos);
+    const unsub = photoStore.subscribe((data) => {
+      setPhotos([...data].reverse()); // recent first
+    });
     return () => unsub();
   }, []);
 
-  return (
-    <section className="services-section py-5">
-      <div className="container">
-        <h2 className="text-center mb-4">Gallery</h2>
+  /* 🔥 AUTO SLIDE */
+  useEffect(() => {
+    if (photos.length <= 1) return;
+    const t = setInterval(() => {
+      nextSlide();
+    }, 3000);
+    return () => clearInterval(t);
+  }, [photos, index]);
 
-        <div className="row">
-          {photos.length ? (
-            photos.map((p) => (
-              <div key={p.id} className="col-md-3 mb-4">
-                <div className="card h-100">
-                  <img
-                    src={p.image}
-                    className="card-img-top"
-                    style={{ height: 200, objectFit: "cover" }}
-                  />
-                  <div className="card-body text-center">
-                    {p.title}
-                  </div>
-                </div>
-              </div>
-            ))
-          ) : (
-            <p className="text-center">No photos available</p>
-          )}
-        </div>
+  /* 🔥 MANUAL BUTTONS */
+  const nextSlide = () => {
+    setIndex((p) => (p + 1) % photos.length);
+  };
+
+  const prevSlide = () => {
+    setIndex((p) => (p - 1 + photos.length) % photos.length);
+  };
+
+  /* 🔥 5 items for half-peek effect */
+  const getVisible = () => {
+    let arr = [];
+    for (let i = 0; i < 4; i++) {
+      arr.push(photos[(index + i) % photos.length]);
+    }
+    return arr;
+  };
+
+  const visible = getVisible();
+
+  return (
+    <section className="gallery">
+      <h2>Gallery</h2>
+
+      <div className="slider-wrapper">
+
+        {/* Prev */}
+        <button className="nav prev" onClick={prevSlide}>‹</button>
+
+       <div className="slider">
+  {visible.map((p, i) => (
+    <div key={p?.id || i} className={`slide pos-${i}`}>
+      <img src={p?.image} alt={p?.title} />
+      <p>{p?.title}</p>
+    </div>
+  ))}
+</div>
+
+
+        {/* Next */}
+        <button className="nav next" onClick={nextSlide}>›</button>
+
       </div>
     </section>
   );

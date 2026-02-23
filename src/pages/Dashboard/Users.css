@@ -1,0 +1,249 @@
+/* ===============================
+   ROOT COLORS (Refined)
+================================ */
+:root {
+  --bg-main: #0b1220;
+  --bg-card: rgba(255, 255, 255, 0.06);
+  --bg-row: rgba(255, 255, 255, 0.05);
+  --border-soft: rgba(255, 255, 255, 0.08);
+  --text-main: #f1f5f9;
+  --text-muted: #94a3b8;
+  --accent: #3b82f6;
+  --danger: #ef4444;
+  --warning: #f59e0b;
+  --success: #22c55e;
+}
+
+/* ===============================
+   PAGE BACKGROUND
+================================ */
+body {
+  /* background: linear-gradient(145deg, #0f172a, #020617); */
+  font-family: "Inter", system-ui, sans-serif;
+  color: var(--text-main);
+}
+
+/* ===============================
+   CONTAINER
+================================ */
+.p-4 {
+  max-width: 1200px;
+  margin: auto;
+  padding-top: 30px;
+}
+
+/* ===============================
+   TITLE
+================================ */
+h2 {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 25px;
+  letter-spacing: 0.5px;
+  position: relative;
+}
+
+/* h2::after {
+  content: "";
+  width: 60px;
+  height: 3px;
+  background: var(--accent);
+  display: block;
+  margin-top: 8px;
+  border-radius: 2px;
+} */
+
+/* ===============================
+   EDIT USER PANEL
+================================ */
+.card {
+  background: var(--bg-card);
+  backdrop-filter: blur(18px);
+  border-radius: 20px;
+  border: 1px solid var(--border-soft);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  padding: 25px;
+  transition: 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+}
+
+.card input {
+    background: rgba(255,255,255,0.05);
+    border: 2px solid var(--bg-main);
+    border-radius: 12px;
+    padding: 12px 14px;
+    color: #1870c9;
+    transition: 0.3s ease;
+}
+
+.card input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(59,130,246,0.25);
+}
+
+/* ===============================
+   BUTTONS
+================================ */
+.btn {
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 8px 18px;
+  transition: all 0.25s ease;
+  border: none;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+}
+
+/* Edit */
+.btn-warning {
+  background: linear-gradient(135deg, #fbbf24, #f59e0b);
+  color: #111;
+}
+
+/* Delete */
+.btn-danger {
+  background: linear-gradient(135deg, #ef4444, #b91c1c);
+  color: white;
+}
+
+/* Update */
+.btn-success {
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  color: #021b12;
+}
+
+/* Cancel */
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-main);
+}
+
+/* ===============================
+   TABLE WRAPPER
+================================ */
+.table {
+  width: 100%;
+  margin-top: 30px;
+  border-collapse: separate;
+  border-spacing: 0 14px;
+}
+
+/* ===============================
+   TABLE HEADER
+================================ */
+.table thead th {
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  padding: 14px 18px;
+  letter-spacing: 1px;
+}
+
+/* ===============================
+   TABLE ROWS
+================================ */
+.table tbody tr {
+  background: var(--bg-row);
+  border-radius: 16px;
+  transition: 0.3s ease;
+}
+
+.table tbody tr:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+  background: rgba(255,255,255,0.08);
+}
+
+/* ===============================
+   TABLE CELLS
+================================ */
+.table td {
+  padding: 18px;
+  font-size: 14px;
+  color: var(--text-main);
+  vertical-align: middle;
+}
+
+/* ID Badge */
+.table td:first-child {
+  font-weight: 700;
+  color: var(--accent);
+}
+
+/* Email */
+.table td:nth-child(3) {
+  color: #60a5fa;
+  font-size: 15px;
+}
+
+/* Password */
+.table td:nth-child(4) {
+  font-family: monospace;
+  font-size: 13px;
+  color: #cbd5e1;
+  letter-spacing: 1px;
+}
+
+/* ===============================
+   ACTION BUTTONS
+================================ */
+.table td:last-child {
+  display: flex;
+  gap: 10px;
+}
+
+/* ===============================
+   EMPTY STATE
+================================ */
+.table td.text-center {
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 16px;
+  padding: 35px;
+}
+
+/* ===============================
+   MOBILE RESPONSIVE
+================================ */
+@media (max-width: 768px) {
+
+  .table thead {
+    display: none;
+  }
+
+  .table,
+  .table tbody,
+  .table tr,
+  .table td {
+    display: block;
+    width: 100%;
+  }
+
+  .table tr {
+    padding: 16px;
+    margin-bottom: 15px;
+  }
+
+  .table td {
+    padding: 10px 12px;
+  }
+
+  .table td::before {
+    content: attr(data-label);
+    display: block;
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+}

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getUsers, deleteUser, updateUser } from "../../services/userService";
+import "./Users.css";
 
 const Users = () => {
   const [users, setUsers] = useState([]);
@@ -59,7 +60,8 @@ const Users = () => {
               setEditUser({ ...editUser, password: e.target.value })
             }
           />
-          <button className="btn btn-success me-2" onClick={handleUpdate}>
+          <div className="update-btn">
+             <button className="btn btn-success me-2" onClick={handleUpdate}>
             Update
           </button>
           <button
@@ -68,6 +70,8 @@ const Users = () => {
           >
             Cancel
           </button>
+          </div>
+         
         </div>
       )}
 

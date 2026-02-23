@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import About from "./About";
 import Stats from "./Stats";
 import Services from "./Services";
@@ -6,48 +6,34 @@ import Partners from "./Partners";
 import PartnershipSection from "./Partnership/PartnershipSection";
 import HomePhotoSection from "../components/HomePhotoSection";
 import FAQComponent from "./FAQComponent";
-import homeVideo from "../assets/video/homevideo.mp4";
 import photoStore from "../store/photostore";
+import HomeSlider from "./HomeSlider";
 
 const Home = () => {
   const [photos, setPhotos] = useState([]);
 
-  // Subscribe to live photo updates
   useEffect(() => {
-    const unsubscribe = photoStore.subscribe(setPhotos);
-    return () => unsubscribe();
+    const unsub = photoStore.subscribe(setPhotos);
+    return unsub;
   }, []);
 
   return (
     <>
+      {/* HERO SECTION */}
       <section className="hero-video-section">
         <div className="hero-overlay"></div>
-        <h1 className="hero-title">
-          HYCARE <span>INDUSTRIES</span>
-        </h1>
-
-        <div className="full-video-box">
-          <video
-            className="full-video"
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="auto"
-          >
-            <source src={homeVideo} type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
-        </div>
+        <HomeSlider />
       </section>
 
-      <About />
+      {/* OTHER HOME SECTIONS */}
+       <About/>
       <Stats />
       <Services />
-      <Partners />
-      <HomePhotoSection photos={photos} /> {/* live gallery */}
+      {/* <Partners /> */}
+      <HomePhotoSection photos={photos} />
       <PartnershipSection />
       <FAQComponent />
+     
     </>
   );
 };

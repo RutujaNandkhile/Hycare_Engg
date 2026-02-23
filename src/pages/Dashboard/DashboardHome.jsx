@@ -189,14 +189,14 @@ const DashboardHome = () => {
         </div>
 
         {/* EXTRA SECTION */}
-        <div className="card">
+        {/* <div className="card">
           <h4>Applications</h4>
           <ul>
             <li>Application 1</li>
             <li>Application 2</li>
             <li>Application 3</li>
           </ul>
-        </div>
+        </div> */}
       </div>
     </div>
   );

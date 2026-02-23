@@ -1,26 +1,22 @@
+// 📂 store/photostore.js
 const STORAGE_KEY = "PERMANENT_PHOTOS";
 
-// Load from localStorage
 const loadPhotos = () => {
-  try {
-    const data = localStorage.getItem(STORAGE_KEY);
-    return data ? JSON.parse(data) : [];
-  } catch {
-    return [];
-  }
+  const data = localStorage.getItem(STORAGE_KEY);
+  return data ? JSON.parse(data) : [];
 };
 
-// Save to localStorage
 const savePhotos = (photos) => {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(photos));
 };
 
-// Subscribers
 let listeners = [];
 
-const notify = () => {
+const notify = () =>
   listeners.forEach((cb) => cb([...photoStore.photos]));
-};
+
+const normalize = (cat) =>
+  cat?.toString().trim().toUpperCase();
 
 const photoStore = {
   photos: loadPhotos(),
@@ -28,22 +24,34 @@ const photoStore = {
   subscribe(cb) {
     listeners.push(cb);
     cb([...this.photos]);
-
     return () => {
       listeners = listeners.filter((l) => l !== cb);
     };
   },
 
   add(photo) {
-    this.photos = [...this.photos, photo];
+    const newPhoto = {
+      ...photo,
+      id: Date.now(),             // ⭐ generate id
+      category: normalize(photo.category),
+    };
+
+    this.photos = [...this.photos, newPhoto];
     savePhotos(this.photos);
     notify();
   },
 
   update(id, updated) {
+    const updatedPhoto = {
+      ...updated,
+      id,
+      category: normalize(updated.category),
+    };
+
     this.photos = this.photos.map((p) =>
-      p.id === id ? updated : p
+      p.id === id ? updatedPhoto : p
     );
+
     savePhotos(this.photos);
     notify();
   },
@@ -52,6 +60,13 @@ const photoStore = {
     this.photos = this.photos.filter((p) => p.id !== id);
     savePhotos(this.photos);
     notify();
+  },
+
+  getByCategory(category) {
+    const target = normalize(category);
+    return this.photos.filter(
+      (p) => normalize(p.category) === target
+    );
   },
 };
 

@@ -1,50 +1,83 @@
 import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
+import logo from "../assets/img/logo.jpeg";
 import "./Navbar.css";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
-  const location = useLocation();
-
-  // hide navbar on these pages if needed
-  const hideOnRoutes = ["/login", "/dashboard", "/users" ,"/Signup"];
-
-  if (hideOnRoutes.includes(location.pathname)) {
-    return null; // don't render navbar
-  }
-
-  const isLogin = localStorage.getItem("isLogin");
 
   return (
-    <header className="navbar">
-      <div className="logo">HYCARE INDUSTRIES</div>
+    <>
+      {/* ===== TOP INFO BAR ===== */}
+      <div className="topbar">
+        <div className="top-left"></div>
 
-      {/* Hamburger Button */}
-      <div className="menu-btn" onClick={() => setOpen(!open)}>
-        <span></span>
-        <span></span>
-        <span></span>
+        <div className="top-info">
+  <span>
+    📞 
+    <a href="tel:7620335231">7620335231</a>, 
+    <a href="tel:8605659955">8605659955</a>
+  </span>
+
+  <span>
+    ✉ 
+    <a href="mailto:hycareengineering23@gmail.com">
+      hycareengineering23@gmail.com
+    </a>
+  </span>
+
+  <span>🕒 Mon-Fri: 8am – 7pm</span>
+</div>
+
       </div>
 
-      <nav className={open ? "active" : ""}>
-        <Link to="/" onClick={() => setOpen(false)}>Home</Link>
-        <Link to="/about" onClick={() => setOpen(false)}>About Us</Link>
-        <Link to="/services" onClick={() => setOpen(false)}>Services</Link>
-        {/* <Link to="/pages" onClick={() => setOpen(false)}>Pages</Link> */}
-        <Link to="/contact" onClick={() => setOpen(false)}>Contact Us</Link>
+      {/* ===== MAIN NAVBAR ===== */}
+      <header className="navbar">
+        <div className="nav-wrapper">
+          {/* LOGO */}
+          <div className="logo-section">
+            <img src={logo} alt="logo" className="top-logo" />
+            <span className="brand">HYCARE INDUSTRIES</span>
+          </div>
 
-        {/* Application tab */}
-        <Link to="/application" onClick={() => setOpen(false)}>Application</Link>
+          {/* MENU */}
+          <nav className={`nav-menu ${open ? "show" : ""}`}>
+            <Link to="/" className="active">
+              Home
+            </Link>
+            <Link to="/about">About</Link>
+            <Link to="/services">Services</Link>
+            <Link to="/application">Application Form</Link>
+             {/* Gallery Dropdown */}
+  <div className="dropdown">
+    <span>Gallery ▼</span>
+    <div className="dropdown-content">
+      <Link to="/gallery/cnc-strength">CNC STRENGTH</Link>
+      <Link to="/gallery/vmc-strength">VMC STRENGTH</Link>
+      <Link to="/gallery/inbuild-machinery">INBUILD MACHINERY</Link>
+      <Link to="/gallery/jobs">JOB'S</Link>
+      <Link to="/gallery/spot-welding-electrodes">SPOT WELDING ELECTRODES</Link>
+      <Link to="/gallery/springs-jobs">SPRINGS JOB'S</Link>
+    </div>
+  </div>
+            {/* <Link to="/contact">Contacts</Link> */}
+          </nav>
 
-        {!isLogin && <Link to="/login" onClick={() => setOpen(false)}>Login</Link>}
-      </nav>
+          {/* RIGHT SIDE */}
+          <div className="nav-right">
+            <div className="search">🔍</div>
 
-      <div className="social">
-        <i className="bi bi-facebook"></i>
-        <i className="bi bi-twitter"></i>
-        <i className="bi bi-youtube"></i>
-      </div>
-    </header>
+            <Link to="/login" className="quote-btn">
+              Login →
+            </Link>
+
+            <div className="hamburger" onClick={() => setOpen(!open)}>
+              ☰
+            </div>
+          </div>
+        </div>
+      </header>
+    </>
   );
 };
 

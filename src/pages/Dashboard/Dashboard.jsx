@@ -1,5 +1,6 @@
 import { Outlet, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import "./Dashboard.css";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -15,35 +16,75 @@ const Dashboard = () => {
     }
   }, [navigate]);
 
-  if (!user) return null; // prevent flash
+  if (!user) return null;
 
   return (
     <div className="d-flex">
-      {/* SIDEBAR */}
-      <div className="bg-dark text-white vh-100 p-3" style={{ width: "250px" }}>
-        
-        {/* ✅ ONLY USER NAME */}
-        <h4 className="text-center mb-4">
-          {user.name}
-        </h4>
 
-        <button className="btn btn-dark w-100 mb-2" onClick={() => navigate("/dashboard")}>
+      {/* SIDEBAR */}
+      <div
+        className="bg-dark text-white vh-100 d-flex flex-column p-3"
+        style={{ width: "250px" }}
+      >
+        <h4 className="text-center mb-4">{user.name}</h4>
+
+        <button
+          className="btn btn-dark w-100 mb-2"
+          onClick={() => navigate("/dashboard")}
+        >
           Dashboard
         </button>
 
-        <button className="btn btn-dark w-100 mb-2" onClick={() => navigate("/dashboard/users")}>
+        <button
+          className="btn btn-dark w-100 mb-2"
+          onClick={() => navigate("/dashboard/users")}
+        >
           Users
         </button>
 
-        <button className="btn btn-dark w-100 mb-2" onClick={() => navigate("/dashboard/photos")}>
+        <button
+          className="btn btn-dark w-100 mb-2"
+          onClick={() => navigate("/dashboard/photos")}
+        >
           Photos
         </button>
 
-        <hr />
-
-        <button className="btn btn-danger w-100" onClick={() => navigate("/logout")}>
-          Logout
+        <button
+          className="btn btn-dark w-100 mb-2"
+          onClick={() => navigate("/dashboard/slider")}
+        >
+          Home Slider
         </button>
+
+        <button
+          className="btn btn-dark w-100 mb-2"
+          onClick={() => navigate("/dashboard/application-list")}
+        >
+          Application List
+        </button>
+
+        {/* ⭐ Gallery button */}
+        {/* <button
+          className="btn btn-dark w-100 mb-2"
+          onClick={() => navigate("/dashboard/gallery")}
+        >
+          Gallery View
+        </button> */}
+
+        {/* Logout bottom */}
+        <div className="mt-auto">
+          <hr />
+          <button
+            className="btn btn-danger w-100"
+            onClick={() => {
+              localStorage.removeItem("currentUser");
+              localStorage.removeItem("isLogin");
+              navigate("/login");
+            }}
+          >
+            Logout
+          </button>
+        </div>
       </div>
 
       {/* CONTENT */}

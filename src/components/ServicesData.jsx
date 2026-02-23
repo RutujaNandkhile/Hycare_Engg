@@ -1,54 +1,62 @@
 import {
-  FaCheckCircle,
-  FaHandshake,
   FaCogs,
   FaBolt,
-  FaProjectDiagram,
+  FaCompressAlt,
   FaTools,
+  FaCube,
+  FaIndustry,
 } from "react-icons/fa";
 
+import img1 from "../assets/img/cnc.jpg";
+import img2 from "../assets/img/welding.WEBP";
+import img3 from "../assets/img/spring.jpg";
+import img4 from "../assets/img/fabrication.jpg";
+import img5 from "../assets/img/5axis.jpg";
+import img6 from "../assets/img/other.jpg";
+
 const ServicesData = [
+  
   {
     id: 1,
-    icon: <FaCheckCircle />,
-    title: "Quality Assurance",
-     desc: "At Hycare Engineering, quality is our top priority. Every product and service undergoes rigorous testing to meet the highest industry standards.",
-    active: true,
+    icon: <FaCogs />,
+    title: "CNC and VMC Machining",
+    desc: "High precision CNC & VMC machining for all production needs.",
+    image: img1,
   },
   {
     id: 2,
-    icon: <FaHandshake />,
-    title: "Customer-Centric Approach",
-    desc: "We believe in building lasting relationships with our clients. Our team works closely with you to understand your requirements and deliver solutions that exceed expectations.",
-  
+    icon: <FaBolt />,
+    title: "Spot Welding",
+    desc: "Strong and durable welding for complex assemblies.",
+    image: img2,
   },
   {
     id: 3,
-    icon: <FaCogs />,
-    title: "CNC Turning & Lathe",
-    desc: "Cylindrical parts, shafts, and rotational components with high precision and excellent concentricity.",
-
+    icon: <FaCompressAlt />,
+    title: "Spring Manufacturing",
+    desc: "Custom springs with strict quality standards.",
+    image: img3,
   },
   {
     id: 4,
-    icon: <FaBolt />,
-    title: "Swiss Type Machining",
-    desc: "Precision small parts and high-volume production with exceptional accuracy and repeatability.",
-
+    icon: <FaTools />,
+    title: "Fabrication Services",
+    desc: "Complete fabrication from small to large structures.",
+    image: img4,
   },
   {
     id: 5,
-    icon: <FaProjectDiagram />,
+    icon: <FaCube />,
     title: "5-Axis CNC Machining",
-    desc: "Complex parts with intricate geometries, undercuts, and compound angles machined in single setup.",
-
+    desc: "Complex geometry machining in single setup.",
+    image: img5,
   },
   {
     id: 6,
-    icon: <FaTools />,
-    title: "3-Axis CNC Milling",
-    desc: "Versatile machining for flat surfaces, slots, and simple 3D geometries with excellent precision and surface finish.",
-
+    icon: <FaIndustry />,
+    title: "Other Services",
+    desc: "Prototype, tooling, and custom machining solutions.",
+    image: img6,
   },
 ];
 

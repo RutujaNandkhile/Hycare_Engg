@@ -102,7 +102,7 @@ const Footer = () => {
 
       {/* Bottom bar */}
       <div className="container d-flex justify-content-between align-items-center py-3 border-top border-secondary">
-        <a href="https://example.com" className="btn btn-outline-light">
+        <a href="#" className="btn btn-outline-light">
           Visit site
         </a>
         <p className="mb-0">&copy; 2026 Nursee. All rights reserved.</p>

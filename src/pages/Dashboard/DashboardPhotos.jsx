@@ -1,9 +1,20 @@
 import { useEffect, useRef, useState } from "react";
 import photoStore from "../../store/photostore";
+import "./DashboardPhotos.css";
+
+const categories = [
+  "CNC STRENGTH",
+  "VMC STRENGTH",
+  "INBUILD MACHINERY",
+  "JOB'S",
+  "SPOT WELDING ELECTRODES",
+  "SPRINGS JOB'S",
+];
 
 const DashboardPhotos = () => {
-  const [photos, setPhotos] = useState(photoStore.photos);
+  const [photos, setPhotos] = useState([]);
   const [title, setTitle] = useState("");
+  const [category, setCategory] = useState(categories[0]);
   const [file, setFile] = useState(null);
   const [editingId, setEditingId] = useState(null);
   const [preview, setPreview] = useState(null);
@@ -14,38 +25,61 @@ const DashboardPhotos = () => {
     return () => unsub();
   }, []);
 
+  // ⭐ COMPRESS IMAGE
   const toBase64 = (file) =>
-    new Promise((res, rej) => {
+    new Promise((resolve) => {
+      const img = new Image();
       const reader = new FileReader();
-      reader.onload = () => res(reader.result);
-      reader.onerror = rej;
+
+      reader.onload = (e) => (img.src = e.target.result);
+
+      img.onload = () => {
+        const canvas = document.createElement("canvas");
+        const maxWidth = 800;
+        const scale = maxWidth / img.width;
+
+        canvas.width = maxWidth;
+        canvas.height = img.height * scale;
+
+        const ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+        resolve(canvas.toDataURL("image/jpeg", 0.7));
+      };
+
       reader.readAsDataURL(file);
     });
 
   const reset = () => {
     setTitle("");
+    setCategory(categories[0]);
     setFile(null);
     setEditingId(null);
     setPreview(null);
     if (fileRef.current) fileRef.current.value = "";
   };
 
-  const submit = async (e) => {
-    e.preventDefault();
-    if (!title) return;
+ const submit = (e) => {
+  e.preventDefault();
+  if (!file && !editingId) return;
 
-    let image = preview;
-    if (file) image = await toBase64(file);
+  const image = file ? URL.createObjectURL(file) : preview;
 
-    if (editingId) {
-      photoStore.update(editingId, { id: editingId, title, image });
-    } else {
-      if (!image) return alert("Select image");
-      photoStore.add({ id: Date.now(), title, image });
-    }
-
-    reset();
+  const data = {
+    title,
+    category,
+    image,
   };
+
+  if (editingId) {
+    photoStore.update(editingId, data);
+  } else {
+    photoStore.add(data);
+  }
+
+  reset();
+};
+
 
   return (
     <div className="container mt-4">
@@ -60,6 +94,16 @@ const DashboardPhotos = () => {
           required
         />
 
+        <select
+          className="form-control mb-2"
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+        >
+          {categories.map((c) => (
+            <option key={c}>{c}</option>
+          ))}
+        </select>
+
         <input
           type="file"
           className="form-control mb-2"
@@ -70,22 +114,11 @@ const DashboardPhotos = () => {
             setFile(f);
             if (f) setPreview(URL.createObjectURL(f));
           }}
-          required={!editingId}
         />
 
         <button className="btn btn-primary">
           {editingId ? "Update" : "Add"}
         </button>
-
-        {editingId && (
-          <button
-            type="button"
-            className="btn btn-secondary ms-2"
-            onClick={reset}
-          >
-            Cancel
-          </button>
-        )}
       </form>
 
       <table className="table table-bordered">
@@ -93,44 +126,41 @@ const DashboardPhotos = () => {
           <tr>
             <th>Preview</th>
             <th>Title</th>
+            <th>Category</th>
             <th>Actions</th>
           </tr>
         </thead>
+
         <tbody>
-          {photos.length ? (
-            photos.map((p) => (
-              <tr key={p.id}>
-                <td>
-                  <img src={p.image} style={{ width: 100 }} />
-                </td>
-                <td>{p.title}</td>
-                <td>
-                  <button
-                    className="btn btn-warning btn-sm me-2"
-                    onClick={() => {
-                      setEditingId(p.id);
-                      setTitle(p.title);
-                      setPreview(p.image);
-                    }}
-                  >
-                    Edit
-                  </button>
-                  <button
-                    className="btn btn-danger btn-sm"
-                    onClick={() => photoStore.delete(p.id)}
-                  >
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            ))
-          ) : (
-            <tr>
-              <td colSpan="3" className="text-center">
-                No photos
+          {photos.map((p) => (
+            <tr key={p.id}>
+              <td>
+                <img src={p.image} width={80} alt="" />
+              </td>
+              <td>{p.title}</td>
+              <td>{p.category}</td>
+              <td>
+                <button
+                  className="btn btn-warning btn-sm me-2"
+                  onClick={() => {
+                    setEditingId(p.id);
+                    setTitle(p.title);
+                    setCategory(p.category);
+                    setPreview(p.image);
+                  }}
+                >
+                  Edit
+                </button>
+
+                <button
+                  className="btn btn-danger btn-sm"
+                  onClick={() => photoStore.delete(p.id)}
+                >
+                  Delete
+                </button>
               </td>
             </tr>
-          )}
+          ))}
         </tbody>
       </table>
     </div>

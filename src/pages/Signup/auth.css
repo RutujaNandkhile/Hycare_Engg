@@ -1,113 +1,112 @@
-/* ===== FULL PAGE BACKGROUND ===== */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+
+* {
+  font-family: 'Montserrat', sans-serif;
+  box-sizing: border-box;
+}
+
+/* Background */
 .login-page {
-    background-color: rgb(75, 48, 12); /* dark brown background */
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    justify-content: center; /* center horizontally */
-    align-items: center;     /* center vertically */
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', sans-serif;
+  min-height: 100vh;
+  background: #7987C2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-/* ===== SIGNUP CARD ===== */
-.card {
-    background: #1a1f2b;
-    padding: 30px 20px;
-    border-radius: 16px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
-    max-width: 400px;
-    width: 100%;
-    color: #fff;
+/* Main Signup Card */
+.login-page .card {
+  width: 900px !important;
+  height: 550px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+  padding: 0 !important;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
-/* ===== HEADING ===== */
-.card h4 {
-    text-align: center;
-    font-size: 24px;
-    font-weight: 700;
-    margin-bottom: 20px;
-    letter-spacing: 1px;
+/* LEFT IMAGE PANEL */
+.login-page .card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  background: url("https://images.unsplash.com/photo-1535223289827-42f1e9919769")
+    center/cover no-repeat;
+}
+
+/* Right side content */
+.login-page .card h4,
+.login-page .card form {
+  width: 50%;
+  margin-left: 50%;
+  padding: 0 60px;
+  position: relative;
+}
+
+/* Title */
+.login-page .card h4 {
+  margin-bottom: 30px;
+  font-weight: 600;
+}
+
+/* Form */
+.login-page .card form {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Inputs */
+.login-page .form-control {
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 14px;
+  border: 1px solid #ddd;
+  margin-bottom: 15px;
+}
+
+.login-page .form-control:focus {
+  border-color: #3348A2;
+  box-shadow: none;
+}
+
+/* Button */
+.login-page .btn-primary {
+  background: #3348A2;
+  border: none;
+  border-radius: 8px;
+  padding: 12px;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.login-page .btn-primary:hover {
+  background: #24337a;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+
+  .login-page .card {
+    width: 95% !important;
+    height: auto;
+  }
+
+  .login-page .card::before {
     position: relative;
-}
-
-/* gradient underline */
-.card h4::after {
-    content: "";
-    width: 50px;
-    height: 3px;
-    background: linear-gradient(90deg, #ff6a00, #ee0979);
-    display: block;
-    margin: 10px auto 0;
-    border-radius: 2px;
-}
-
-/* ===== INPUT FIELDS ===== */
-.card input {
     width: 100%;
-    background: #121826;
-    border: 1px solid #3b3f4d;
-    border-radius: 10px;
-    color: #ffffff;
-    padding: 10px 12px;
-    font-size: 14px;
-    margin-bottom: 12px;
-    transition: all 0.3s ease;
-    box-sizing: border-box;
-}
+    height: 200px;
+  }
 
-/* placeholder styling */
-.card input::placeholder {
-    color: #9ca3af;
-    font-size: 13px;
-    font-style: italic;
-}
-
-/* focus effect */
-.card input:focus {
-    outline: none;
-    border-color: #ff6a00;
-    box-shadow: 0 0 0 3px rgba(255, 106, 0, 0.2);
-}
-
-/* ===== BUTTON ===== */
-.card button {
+  .login-page .card h4,
+  .login-page .card form {
     width: 100%;
-    background: #ee0979;
-    border: none;
-    border-radius: 12px;
-    padding: 12px;
-    font-size: 15px;
-    font-weight: 600;
-    color: #ffffff;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: block;
-    margin-top: 8px;
-}
-
-/* hover effect */
-.card button:hover {
-    background: #ff6a00;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 18px rgba(238, 9, 121, 0.3);
-}
-
-/* ===== MOBILE ===== */
-@media (max-width: 480px) {
-    .card {
-        padding: 20px 16px;
-    }
-
-    .card h4 {
-        font-size: 22px;
-    }
-
-    .card input,
-    .card button {
-        padding: 10px;
-        font-size: 13px;
-    }
+    margin-left: 0;
+    padding: 20px;
+  }
 }

@@ -7,8 +7,8 @@ const PartnershipProvider = ({ children }) => {
     {
       id: 1,
       icon: "⚡",
-      title: "Rapid Response Time",
-      desc: "24-hour quote turnaround and fast-track prototyping.",
+      title: "What We Offer",
+      desc: "e offer customized solutions with reliable quality & on-time delivery.",
     },
     {
       id: 2,

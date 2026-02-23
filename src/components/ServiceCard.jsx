@@ -1,10 +1,19 @@
-const ServiceCard = ({ icon, title, desc, active }) => {
+const ServiceCard = ({ icon, title, desc, image }) => {
   return (
-    <div className={`service-card ${active ? "active" : ""}`}>
-      <div className="icon">{icon}</div>
+    <div className="service-card">
+      {/* ICON */}
+      <div className="service-icon">{icon}</div>
+
+      {/* TITLE */}
       <h3>{title}</h3>
+
+      {/* DESCRIPTION */}
       <p>{desc}</p>
-      {/* <span className="more">→ Learn More</span> */}
+
+      {/* HIDDEN IMAGE ON HOVER */}
+      <div className="service-hover">
+        <img src={image} alt={title} />
+      </div>
     </div>
   );
 };

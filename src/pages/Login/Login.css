@@ -1,136 +1,131 @@
-/* ===== FORM login ===== */
-.login-page {
-    background-color: rgb(75, 48, 12); 
-    width: 100vw;                  
-    height: 100vh;                
-    margin: 0;                    
-    padding: 0;                   
-    box-sizing: border-box;       
-}
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
 
-
-.login.container {
-  /* width: 100%; */
-  max-width: 400px; /* compact form width */
-  margin: 50px auto;
-  padding: 24px 20px;
-  background: #1a1f2b;
-  border-radius: 16px;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.4);
-  font-family: 'Segoe UI', sans-serif;
-}
-
-/* ===== FORM HEADING ===== */
-.login h3 {
-  color: #ffffff;
-  text-align: center;
-  font-size: 24px;
-  font-weight: 700;
-  margin-bottom: 20px;
-  letter-spacing: 1px;
-  position: relative;
-}
-
-/* gradient underline */
-.login h3::after {
-  content: "";
-  width: 50px;
-  height: 3px;
-  background: linear-gradient(90deg, #ff6a00, #ee0979);
-  display: block;
-  margin: 10px auto 0;
-  border-radius: 2px;
-}
-
-/* ===== INPUT FIELDS ===== */
-.login input,
-.login select,
-.login textarea {
-  /* width: 100%; */
-  background: #121826;
-  border: 1px solid #3b3f4d;
-  border-radius: 10px;
-  color: #ffffff;
-  padding: 10px 12px; /* smaller padding for compact inputs */
-  font-size: 14px;
-  margin-bottom: 12px;
-  transition: all 0.3s ease;
+* {
+  font-family: 'Montserrat', sans-serif;
   box-sizing: border-box;
 }
 
-/* placeholder styling */
-.login input::placeholder,
-.login textarea::placeholder {
-  color: #9ca3af;
-  font-size: 13px;
-  font-style: italic;
+/* Background */
+.login-page {
+  min-height: 100vh;
+  background: #7987C2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-/* focus effect */
-.login input:focus,
-.login select:focus,
-.login textarea:focus {
-  outline: none;
-  border-color: #ff6a00;
-  box-shadow: 0 0 0 3px rgba(255, 106, 0, 0.2);
+/* Main Card */
+.login {
+  width: 900px !important;
+  height: 550px;
+  display: flex;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+  background: white;
+  padding: 0 !important;
+  position: relative;
 }
 
-/* ===== BUTTON ===== */
-.login button {
-  width: 100%;
-  background: #ee0979;
-  border: none;
-  border-radius: 12px;
-  padding: 12px;
-  font-size: 15px;
-  font-weight: 600;
-  color: #ffffff;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-align: center;
-  display: block;
+/* LEFT IMAGE PANEL */
+.login::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  background: url("https://images.unsplash.com/photo-1535223289827-42f1e9919769")
+    center/cover no-repeat;
 }
 
-/* hover effect */
-.login button:hover {
-  background: #ff6a00;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 18px rgba(238, 9, 121, 0.3);
-}
-
-/* ===== FOOTER TEXT ===== */
+/* RIGHT SIDE CONTENT WRAPPER */
+.login h3,
+.login form,
 .login p {
-  text-align: center;
-  margin-top: 16px;
-  color: #cbd5e1;
-  font-size: 13px;
+  width: 50%;
+  margin-left: 50%;
+  padding: 0 60px;
 }
 
-/* link */
-.login p a {
-  color: #ff6a00;
+/* Align content vertically */
+.login {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Title */
+.login h3 {
+  margin-bottom: 30px;
   font-weight: 600;
-  text-decoration: underline;
 }
 
-.login p a:hover {
-  color: #ee0979;
+/* Form */
+.login form {
+  display: flex;
+  flex-direction: column;
 }
 
-/* ===== MOBILE ===== */
-@media (max-width: 480px) {
+/* Inputs */
+.login .form-control {
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 14px;
+  border: 1px solid #ddd;
+  margin-bottom: 15px;
+}
+
+.login .form-control:focus {
+  border-color: #3348A2;
+  box-shadow: none;
+}
+
+/* Button */
+.login .btn-primary {
+  background: #3348A2;
+  border: none;
+  border-radius: 8px;
+  padding: 12px;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.login .btn-primary:hover {
+  background: #24337a;
+}
+
+/* Register Text */
+.login p {
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+.login p a {
+  color: #3348A2;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+
   .login {
-    padding: 20px 16px;
+    width: 95% !important;
+    height: auto;
   }
 
-  .login h3 {
-    font-size: 22px;
+  .login::before {
+    position: relative;
+    width: 100%;
+    height: 200px;
   }
 
-  .login input,
-  .login textarea,
-  .login button {
-    padding: 10px;
-    font-size: 13px;
+  .login h3,
+  .login form,
+  .login p {
+    width: 100%;
+    margin-left: 0;
+    padding: 20px;
   }
 }

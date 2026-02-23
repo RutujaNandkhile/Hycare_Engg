@@ -1,0 +1,196 @@
+/* ===============================
+   DASHBOARD BACKGROUND
+================================ */
+body {
+  /* background: linear-gradient(135deg, #eef2ff, #f8fafc); */
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+/* ===============================
+   MAIN CONTAINER
+================================ */
+.container {
+  max-width: 1200px;
+}
+
+/* ===============================
+   PAGE TITLE
+================================ */
+h2 {
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 20px;
+}
+
+/* ===============================
+   FORM PANEL
+================================ */
+form {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  margin-bottom: 30px;
+}
+
+/* INPUTS */
+.form-control {
+  border-radius: 8px;
+  border: 1px solid #c7d2fe;
+  padding: 11px 14px;
+  font-size: 14px;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: #6366f1;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+}
+
+/* ===============================
+   BUTTONS
+================================ */
+.btn {
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 8px 18px;
+  transition: 0.2s ease;
+}
+
+/* PRIMARY */
+.btn-primary {
+  background: #6366f1;
+  color: #fff;
+  border: none;
+}
+
+.btn-primary:hover {
+  background: #4f46e5;
+}
+
+/* EDIT */
+.btn-warning {
+  background: #f59e0b;
+  color: #fff;
+  border: none;
+}
+
+.btn-warning:hover {
+  background: #d97706;
+}
+
+/* DELETE */
+.btn-danger {
+  background: #ef4444;
+  color: #fff;
+  border: none;
+}
+
+.btn-danger:hover {
+  background: #dc2626;
+}
+
+/* SECONDARY */
+.btn-secondary {
+  background: #e5e7eb;
+  color: #111827;
+}
+
+/* ===============================
+   TABLE CONTAINER
+================================ */
+.table {
+  background: #ffffff;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+/* ===============================
+   TABLE HEADER
+================================ */
+.table thead {
+  background: linear-gradient(135deg, #6366f1, #4338ca);
+}
+
+.table thead th {
+  color: #ffffff;
+  border: none;
+  padding: 16px;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* ===============================
+   TABLE BODY
+================================ */
+.table tbody tr {
+  transition: background 0.2s ease;
+}
+
+.table tbody tr:hover {
+  background: #eef2ff;
+}
+
+/* ===============================
+   TABLE CELLS
+================================ */
+.table td {
+  padding: 14px 16px;
+  border-top: 1px solid #e5e7eb;
+  vertical-align: middle;
+  font-size: 14px;
+  color: #1f2937;
+}
+
+/* ===============================
+   IMAGE PREVIEW
+================================ */
+.table img {
+  width: 90px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 2px solid #e0e7ff;
+}
+
+/* ===============================
+   ACTION BUTTONS
+================================ */
+.table td:last-child {
+  white-space: nowrap;
+}
+
+.table td:last-child .btn {
+  margin-right: 6px;
+}
+
+/* ===============================
+   EMPTY STATE
+================================ */
+.table td.text-center {
+  padding: 30px;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+/* ===============================
+   RESPONSIVE (MOBILE)
+================================ */
+@media (max-width: 768px) {
+  .table {
+    font-size: 13px;
+  }
+
+  .table img {
+    width: 70px;
+    height: 50px;
+  }
+
+  .btn {
+    padding: 6px 14px;
+    font-size: 13px;
+  }
+}

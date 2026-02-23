@@ -17,10 +17,13 @@ import DashboardHome from "./pages/Dashboard/DashboardHome";
 import DashboardPhotos from "./pages/Dashboard/DashboardPhotos";
 import Users from "./pages/Dashboard/Users";
 import ApplicationList from "./pages/Dashboard/ApplicationList";
+import SliderAdmin from "./pages/Dashboard/SliderAdmin";
 
 import { DashboardProvider } from "./context/DashboardContext";
+import GalleryCategoryPage from "./pages/Dashboard/GalleryCategoryPage";
 
-// Private Route
+
+// 🔐 Private Route
 const PrivateRoute = ({ children }) => {
   const isLogin = localStorage.getItem("isLogin");
   return isLogin ? children : <Navigate to="/login" />;
@@ -29,8 +32,7 @@ const PrivateRoute = ({ children }) => {
 function App() {
   const location = useLocation();
 
-  // Hide Navbar & Footer on login/signup/dashboard
-  const hideLayoutRoutes = ["/login", "/Signup", "/dashboard", ];
+  const hideLayoutRoutes = ["/login", "/signup", "/dashboard"];
   const hideLayout = hideLayoutRoutes.some((route) =>
     location.pathname.startsWith(route)
   );
@@ -38,18 +40,19 @@ function App() {
   return (
     <DashboardProvider>
       {!hideLayout && <Navbar />}
-      
+
       <Routes>
-        {/* Public Routes */}
+        {/* Public */}
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/services" element={<Services />} />
+        <Route path="/application" element={<ApplicationForm />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/logout" element={<Logout />} />
-        <Route path="/application" element={<ApplicationForm />} />
+         <Route path="/gallery/:categorySlug" element={<GalleryCategoryPage />} />
 
-        {/* Private Dashboard Routes */}
+        {/* Dashboard (Protected) */}
         <Route
           path="/dashboard"
           element={
@@ -61,7 +64,11 @@ function App() {
           <Route index element={<DashboardHome />} />
           <Route path="users" element={<Users />} />
           <Route path="photos" element={<DashboardPhotos />} />
-          <Route path="applications-list" element={<ApplicationList />} />
+          <Route path="slider" element={<SliderAdmin />} />
+          <Route path="application-list" element={<ApplicationList />} />
+
+          {/* ✅ FIX: remove slash */}
+          {/* <Route path="gallery" element={<GalleryPage />} /> */}
         </Route>
 
         {/* Fallback */}

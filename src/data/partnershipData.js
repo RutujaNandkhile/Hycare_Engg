@@ -1,45 +1,43 @@
 export const benefitsData = [
   {
-    title: "Rapid Response Time",
+    title: "High Quality Hardware",
     description:
-      "24-hour quote turnaround with detailed analysis. Fast-track prototyping in 3–5 days.",
-    icon: "fa-solid fa-bolt",
-    color: "blue",
+      "We use top-notch hardware to develop the most efficient apps for our customers.",
+  },
+  {
+    title: "Dedicated 24/7 Support",
+    description:
+      "You can rely on our 24/7 tech support that will gladly solve any app issue you may have.",
   },
   {
     title: "Quality Assurance",
     description:
-      "ISO 9001:2015 certified processes with inspection and documentation.",
-    icon: "fa-solid fa-check",
-    color: "orange",
+      "At Hycare Engineering, quality is our top priority. Every product and service undergoes rigorous testing to meet the highest industry standards.",
   },
   {
-    title: "Cost Optimization",
+    title: "Customer-Centric Approach",
     description:
-      "Design for manufacturability consultation to reduce costs.",
-    icon: "fa-solid fa-dollar-sign",
-    color: "blue",
+      "We believe in building lasting relationships with our clients. Our team works closely with you to understand your requirements and deliver solutions that exceed expectations.",
   },
   {
-    title: "Engineering Support",
+    title: "Experienced Team",
     description:
-      "Dedicated project managers and engineering team support.",
-    icon: "fa-solid fa-briefcase",
-    color: "orange",
+      "Our skilled professionals bring years of expertise and a passion for excellence to every project.",
+  },
+  {
+    title: "Advanced Technology:",
+    description:
+      "We invest in the latest technology and equipment to ensure precision, efficiency, and innovation in our processes.",
   },
 ];
 
-export const trackRecordData = [
-  { value: "12+", label: "YEARS EXPERIENCE", color: "blue-text" },
-  { value: "5000+", label: "PROJECTS COMPLETED", color: "orange-text" },
-  { value: "99.8%", label: "QUALITY RATE", color: "blue-text" },
-  { value: "500+", label: "GLOBAL CLIENTS", color: "orange-text" },
-];
+/* RIGHT SIDE SAME RAKHNA HAI */
 
-export const industries = [
-  "Automotive",
-  "Robotics",
-  "Medical",
-  "Aerospace",
-  "Electronics",
-];
+
+// export const industries = [
+//   "Automotive",
+//   "Robotics",
+//   "Medical",
+//   "Aerospace",
+//   "Electronics",
+// ];
